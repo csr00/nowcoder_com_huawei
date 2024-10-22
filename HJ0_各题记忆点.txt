@@ -1,0 +1,161 @@
+HJ1
+getline(cin, str); // 读取整行
+
+// 读取整行：getline 会读取直到换行符（\n）为止的所有字符，包括空格。
+// 自动处理空格：与 std::cin 不同，getline 不会忽略输入中的空格。
+// 换行符处理：读取后，换行符不会被存储到 str 中。
+
+HJ2
+tolower(str[i]); // 转小写
+
+//#include <cctype> 是 C++ 中用于包含字符处理函数的头文件
+//一些常见函数如下：
+// 字符分类函数
+// std::isalpha(int ch)：检查字符是否为字母（a-z 或 A-Z）。
+// std::isdigit(int ch)：检查字符是否为数字（0-9）。
+// std::isspace(int ch)：检查字符是否为空白字符（如空格、制表符、换行符等）。
+// std::islower(int ch)：检查字符是否为小写字母。
+// std::isupper(int ch)：检查字符是否为大写字母。
+// std::ispunct(int ch)：检查字符是否为标点符号。
+// 字符转换函数
+// std::tolower(int ch)：将字符转换为小写字母，如果该字符是字母。
+// std::toupper(int ch)：将字符转换为大写字母，如果该字符是字母。
+
+HJ3
+数组充当hash表，本题上实现很像桶排序
+//hash表，很类似类似桶排序，而不是调用sort函数
+
+HJ4
+<string>头文件
+2. 字符串连接
+连接
+std::string result = str1 + str2;：使用 + 运算符连接两个字符串。
+str.append(" World");：在 str 的末尾追加字符串。
+3. 字符串大小和容量
+大小
+str.size() 或 str.length()：返回字符串的长度（字符数）。
+容量
+str.capacity()：返回字符串的当前容量（可以容纳的字符数）。
+4. 字符串访问
+访问单个字符
+char c = str[0];：访问字符串中的第一个字符。
+5. 查找和替换
+查找
+str.find("substring")：返回子字符串首次出现的位置，未找到返回 std::string::npos。
+str.rfind("substring")：返回子字符串最后一次出现的位置。
+替换
+str.replace(pos, len, "new substring")：从 pos 开始替换 len 个字符为新字符串。
+6. 子字符串
+获取子字符串
+str.substr(pos, len)：返回从 pos 开始的长度为 len 的子字符串。
+7. 字符串比较
+比较
+str1.compare(str2)：比较两个字符串，返回负数、零或正数，表示 str1 小于、等于或大于 str2。
+8. 转换
+转换为 C 风格字符串
+const char* c_str = str.c_str();：返回指向字符串内容的指针。
+转换为整数
+std::stoi(str)：将字符串转换为整数。
+std::stof(str)：将字符串转换为浮点数。
+9. 其他操作
+清空字符串
+str.clear();：清空字符串内容。
+检查是否为空
+str.empty()：检查字符串是否为空。
+
+HJ5
+进制转换
+从高位向低位迭代
+for(int i=2;i<str.length();++i){
+        int tmp=0;
+        if(str[i]>='0'&&str[i]<='9'){
+            tmp=str[i]-'0';
+        }else{
+            tmp=str[i]-'A'+10;
+        }
+        sum=sum*16+tmp;                 // 每次循环，按进制增大sum，将当前位的值加到 sum 中
+    }
+erase函数
+std::string& erase(size_t pos = 0, size_t len = npos);
+参数：
+pos：要开始删除的字符位置，默认为 0。
+len：要删除的字符数目，默认为 npos（表示删除到字符串末尾）。
+
+HJ6
+质数因子
+本题不是要找质数去比较，而是利用质数因子的特性，从2开始循环向上本身就只会在素数
+的时候才会整除，所以直接判断是否整除即可
+for(int i=2;i*i<=n;++i){
+        while(n%i==0){
+            cout<<i<<" ";
+            n/=i;
+        }
+    }
+
+HJ7
+取近似值
+double类型，四舍五入
+(int)(num+0.5)
+也可以使用modf函数
+double modf(double x, double* intpart);
+参数
+x：要分解的浮点数。
+intpart：指向一个 double 类型的指针，用于存储分解后的整数部分。
+
+HJ8
+合并表记录
+使用map，保证key的有序性
+map[key]+=value;
+
+HJ9
+提取不重复的整数
+使用set，保证元素不重复
+set<int> s;
+s.insert(num);
+
+HJ10
+字符个数统计
+ASCII码表0是48，A是65，a是97
+unordered_set<char> s;
+s.size()
+
+HJ11
+数字颠倒
+使用字符串，保证顺序，注意num==0的情况
+string tmp;
+while(num){
+    tmp+=num%10+'0';
+    num/=10;
+}
+或者使用to_string函数
+string s=to_string(num%10);
+
+HJ12
+reverse(s.begin(),s.end());位于algorithm头文件中
+字符串反转
+使用字符串，保证顺序
+string tmp;
+for(int i=0;i<s.length();++i){
+    tmp+=s[s.length()-1-i];
+}
+
+HJ13
+句子逆序
+两次翻转，先翻转整个字符串，再翻转每个单词
+reverse(s.begin(),s.end());
+string tmp;
+for(int i=0;i<s.length();++i){
+    if(s[i]==' '){
+        reverse(tmp.begin(),tmp.end());
+        tmp.clear();
+    }else{
+        tmp+=s[i];
+    }
+}
+reverse(tmp.begin(),tmp.end());
+
+HJ14
+字符串排序
+algorithm头文件中
+sort函数，保证字典序
+字符串string本身重载了<运算符，可以直接对应字典序
